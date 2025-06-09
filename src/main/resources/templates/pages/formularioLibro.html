@@ -9,7 +9,7 @@
 <body>
 <form th:action="@{/guardarLibro}" method="post" th:object="${libro}">
     <div hidden class="mb-3">
-        <label for="codigo" class="form-label">Código</label>
+        <label for="codigo" class="form-label">Nombre Completo</label>
         <input type="number" class="form-control" id="codigo" th:field="*{id}">
     </div>
     <div class="mb-3">
