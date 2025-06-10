@@ -1,6 +1,8 @@
 package com.itsqmet.controller;
 
+import com.itsqmet.entity.Autor;
 import com.itsqmet.entity.Libro;
+import com.itsqmet.service.AutorServicio;
 import com.itsqmet.service.LibroServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class LibroControlador {
     @Autowired
     private LibroServicio libroServicio;
+    @Autowired
+    private AutorServicio autorServicio;
 
     //Leer los libros
     @GetMapping("/libros")
@@ -28,6 +32,9 @@ public class LibroControlador {
     @GetMapping("/formularioLibro")
     public String formularioLibro(Model model){
         model.addAttribute("libro", new Libro());
+        //Pasar los autores desde el servicio autor al formulario
+        List<Autor>autores = autorServicio.mostrarAutor();
+        model.addAttribute("autores", autores);
 
         return "pages/formularioLibro";
     }
@@ -41,6 +48,8 @@ public class LibroControlador {
     public String actualizarLibro(@PathVariable Long id, Model model){
         Optional<Libro> libro = libroServicio.buscarLibroId(id);
         model.addAttribute("libro", libro);
+        //Pasar los autores desde el servicio autor al formulario pero mas corto
+        model.addAttribute("autores", autorServicio.mostrarAutor());
         return "pages/formularioLibro";
     }
     //Eliminar Libro

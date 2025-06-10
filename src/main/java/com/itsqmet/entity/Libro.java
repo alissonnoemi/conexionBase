@@ -18,5 +18,11 @@ public class Libro {
      private String editorial;
      private String paginas;
      private Double precio;
-
+     private String autores;
+     @ManyToOne
+    @JoinColumn(name="codigo_autor")
+    private Autor autor;
+     @ManyToOne
+    @JoinColumn (name = "codigo_genero")
+    private Genero genero;
 }

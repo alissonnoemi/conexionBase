@@ -38,5 +38,10 @@ public class LibroServicio {
     public void eliminarLibro(Long id){
         libroRepositorio.deleteById(id);
     }
+    //Obtener libro con su autor
+    public List<Libro> buscarLibroAutor(Long id){
+        List<Libro> librosAutor = libroRepositorio.findByAutorId(id);
+        return librosAutor;
+    }
 
 }
