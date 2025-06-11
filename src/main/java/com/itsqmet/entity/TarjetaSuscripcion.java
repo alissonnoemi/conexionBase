@@ -9,6 +9,6 @@ public class TarjetaSuscripcion {
     private long id;
     private Number tipo;
     @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", unique = true)
     private Usuario usuario;
 }

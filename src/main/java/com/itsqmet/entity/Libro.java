@@ -3,6 +3,9 @@ package com.itsqmet.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Libros") //el table solo se pone si quiero ponerle otro nombre a la tabla
@@ -20,9 +23,18 @@ public class Libro {
      private Double precio;
      private String autores;
      @ManyToOne
-    @JoinColumn(name="codigo_autor")
+    @JoinColumn(name="id_autor")
     private Autor autor;
+     //Relaciòn de varios  uno
      @ManyToOne
-    @JoinColumn (name = "codigo_genero")
+    @JoinColumn (name = "id_genero")
     private Genero genero;
+     //@ManyToMany (mappedBy = "libros")
+    //private List<Usuario> usuarios;
+    //Relaciòn con libro
+    @OneToMany (mappedBy = "libro")
+    private List<Prestamo> prestamos;
+
+
+
 }

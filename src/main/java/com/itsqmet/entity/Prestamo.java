@@ -1,20 +1,23 @@
 package com.itsqmet.entity;
 
 import jakarta.persistence.*;
-
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Prestamo {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
-    private Date fechaPrestamo;
-    private Date fechaDevolucion;
-   @ManyToOne
-   @JoinColumn (name = "libro_id")
-    private Libro libro;
+    //relacion con usuario
     @ManyToOne
     @JoinColumn (name = "usuario_id")
     private Usuario usuario;
+    //relacion con libro
+    @ManyToOne
+    @JoinColumn (name = "libro_id")
+    private Libro libro;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String fechaPrestamo;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String fechaDevolucion;
 }
