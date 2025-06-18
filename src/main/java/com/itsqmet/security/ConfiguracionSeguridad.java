@@ -17,16 +17,19 @@ public class ConfiguracionSeguridad {
         http
                 .authorizeHttpRequests(auth ->auth
                         .requestMatchers("/","login","/formularioUsuario","/guardar-usuario","/css/**","/js/**").permitAll()
+                        .requestMatchers("/formularioLibro", "/guardar-libro").hasRole("bibliotecario")
+                        .requestMatchers("/libros").hasAnyRole("bibliotecario", "estudiante")
+                        .requestMatchers("admin").hasRole("admin")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form->form
                                 .loginPage("/login")
                                 .permitAll()
-                                .defaultSuccessUrl("/usuarios",true)
+                                .defaultSuccessUrl("/postLogin",true)
                         )
-                .logout(logut->logut
-                        .logoutUrl("/logut")
-                        .logoutSuccessUrl("/login?logut")
+                .logout(logout->logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );
         return http.build();

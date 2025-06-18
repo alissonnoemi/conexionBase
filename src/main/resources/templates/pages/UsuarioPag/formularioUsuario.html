@@ -57,6 +57,16 @@
         </select>-->
         <br>
         <br>
+        <div class="mb-3">
+            <label for="rol" class="form-label">Rol</label>
+            <select id="rol" th:field="*{rol.id}">
+                <option th:each="rol:${roles}"
+                        th:value="${rol.id}"
+                        th:text="${rol.nombre}">
+                    Seleccione Rol
+                </option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-guardar btn-lg text-white bg-primary border-0 rounded shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary">
             Guardar
         </button>

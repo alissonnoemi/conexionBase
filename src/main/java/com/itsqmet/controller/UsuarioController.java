@@ -1,9 +1,7 @@
 package com.itsqmet.controller;
 
-import com.itsqmet.entity.Autor;
-import com.itsqmet.entity.Genero;
-import com.itsqmet.entity.Libro;
-import com.itsqmet.entity.Usuario;
+import com.itsqmet.entity.*;
+import com.itsqmet.service.RolServicio;
 import com.itsqmet.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,18 +19,21 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-
+    @Autowired
+    private  RolServicio rolServicio;
     //listar usuarios
     @GetMapping("/usuarios")
     public String listarUsuarios( Model model){
         model.addAttribute("usuarios",usuarioService.mostrarUsuario());
+
         return "pages/UsuarioPag/listaUsuarios";
     }
     //Insertar un Nuevo Usuario
     @GetMapping("/formularioUsuario")
     public String formularioUsuario(Model model){
         model.addAttribute("usuario", new Usuario());
+       List <Rol> roles = rolServicio.mostrarRol();
+        model.addAttribute("roles", roles);
         return "pages/UsuarioPag/formularioUsuario";
     }
     @PostMapping("/guardar-usuario")
@@ -45,6 +46,8 @@ public class UsuarioController {
     public String actualizarUsuario(@PathVariable Long id, Model model){
         Optional<Usuario>usuario  = usuarioService.buscarUsuarioId(id);
         model.addAttribute("usuario",usuario);
+        List <Rol> roles = rolServicio.mostrarRol();
+        model.addAttribute("roles", roles);
         return "pages/UsuarioPag/formularioUsuario";
     }
     //Eliminar Usuario
@@ -53,7 +56,5 @@ public class UsuarioController {
         usuarioService.eliminarUsuario(id);
         return "redirect:/usuarios";
     }
-
-
 
 }
